@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ejercicio 1: Tabla con números aleatorios(AJJA)</title>
+    <style>
+        table {
+            margin: 0 auto; 
+        }
+        td {
+            width: 100px;
+            height: 100px;
+            border: 3px solid blue;
+            background-color: cornflowerblue;
+            text-align: center;
+        }
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ejercicio 1: Tabla con números aleatorios</h1>
+    <script>
+        let numFila = prompt("Ingrese el número de filas:");
+        let numCol = prompt("Ingrese el número de columnas:");
+
+        let table = "<table>";
+        for (let i = 0; i < numFila; i++) {
+            table += "<tr>";
+            for (let j = 0; j < numCol; j++) {
+                let numal = Math.floor(Math.random() * 100) + 1;
+                table += "<td>" + numal + "</td>";
+            }
+            table += "</tr>";
+        }
+        table += "</table>";
+        document.write(table);
+    </script>
+</body>
+</html>

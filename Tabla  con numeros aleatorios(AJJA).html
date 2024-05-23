@@ -1,0 +1,36 @@
+<html>
+<head>
+    <style>
+        table {
+            margin: 0 auto; 
+        }
+        td {
+            border: 3px solid black;
+            background-color: aqua;
+            width: 100px;
+            height: 100px;
+            text-align: center;
+        }
+        h2{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h2>Tabla con numeros aleatorios javascript (AJJA)</h2>
+    <table>
+        <script>
+            let table = "<tr>";
+            for (let i = 0; i < 25; i++) {
+                let numal = Math.floor(Math.random() * 100) + 1;
+                table += "<td>" + numal + "</td>";
+                if ((i + 1) % 5 === 0 && i !== 0 && i !== 24) {
+                    table += "</tr><tr>";
+                }
+            }
+            table += "</tr>";
+            document.write(table);
+        </script>
+    </table>
+</body>
+</html>

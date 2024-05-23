@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dibujar Figuras</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        canvas {
+            border: 2px solid #445566;
+            background-color: #f0f8ff;
+        }
+    </style>
+</head>
+<body onload="iniciar()">
+    <canvas id="lienzo" width="800" height="600"></canvas>
+    <script>
+        let canvas = document.getElementById('lienzo');
+        let ctx = canvas.getContext('2d');
+        let figuraSeleccionada = 'circulo';
+        let color = '#000000';
+        let dibujando = false;
+        let inicioX, inicioY, finX, finY;
+
+        function iniciar() {
+            canvas.addEventListener('mousedown', iniciarDibujo);
+            canvas.addEventListener('mouseup', terminarDibujo);
+        }
+
+        function iniciarDibujo(evento) {
+            dibujando = true;
+            inicioX = evento.offsetX;
+            inicioY = evento.offsetY;
+        }
+
+        function terminarDibujo(evento) {
+            if (!dibujando) return;
+            dibujando = false;
+            finX = evento.offsetX;
+            finY = evento.offsetY;
+            dibujarFigura();
+        }
+
+        function dibujarFigura() {
+            ctx.fillStyle = color;
+            if (figuraSeleccionada === 'circulo') {
+                let radio = Math.sqrt(Math.pow(finX - inicioX, 2) + Math.pow(finY - inicioY, 2));
+                ctx.beginPath();
+                ctx.arc(inicioX, inicioY, radio, 0, 2 * Math.PI);
+                ctx.fill();
+            } else if (figuraSeleccionada === 'cuadrado') {
+                let ancho = finX - inicioX;
+                let alto = finY - inicioY;
+                ctx.fillRect(inicioX, inicioY, ancho, alto);
+            }
+        }
+
+        function seleccionarFigura(figura) {
+            figuraSeleccionada = figura;
+        }
+
+        function cambiarColor() {
+            color = document.getElementById('colorPicker').value;
+        }
+    </script>
+    <div>
+        <button onclick="seleccionarFigura('circulo')">Dibujar Círculo</button>
+        <button onclick="seleccionarFigura('cuadrado')">Dibujar Cuadrado</button>
+    </div>
+</body>
+</html>

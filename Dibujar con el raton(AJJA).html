@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dibujar con mouse (AJJA)</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh;
+            margin: 0; 
+        }
+        canvas {
+            border: 2px solid #445566;
+            background-color: #f0f8ff; 
+        }
+    </style>
+</head>
+<body onload="iniciarJuego()">
+<script>
+    let jugador;
+    let color;
+
+    function iniciarJuego(){
+        areaJuego.inicio();
+        color = obtenerColorAleatorio();
+    }
+
+    function obtenerColorAleatorio() {
+        let letras = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letras[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    let areaJuego = {
+        canvas: document.createElement("canvas"),
+        inicio:function(){
+            this.canvas.width = 960;
+            this.canvas.height = 540;
+            this.context = this.canvas.getContext("2d");
+            document.body.insertBefore(this.canvas,
+                document.body.childNodes[0]);
+            this.interval =
+                setInterval(actualizaArea,20);
+            this.canvas.addEventListener('mousemove', dibujar);
+            this.canvas.addEventListener('mousedown', function() {
+                color = obtenerColorAleatorio();
+            });
+        },
+        
+    }
+
+    function dibujar(e) {
+        if (e.buttons !== 1) return; 
+        let rect = areaJuego.canvas.getBoundingClientRect();
+        let x = e.clientX - rect.left;
+        let y = e.clientY - rect.top;
+        let ctx = areaJuego.context;
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.arc(x, y, 5, 0, 2 * Math.PI);
+        ctx.fill();
+    }
+
+    function actualizaArea(){
+      
+    }
+</script>
+</body>
+</html>
